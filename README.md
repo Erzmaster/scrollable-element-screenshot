@@ -1,7 +1,7 @@
 # Scrollable Element Screenshot for Violentmonkey
 
 Capture any scrollable element as a full PNG screenshot directly in your
-browser — including nested scroll containers and content outside the visible area.
+browser—including nested scroll containers and content outside the visible area.
 
 This Violentmonkey/Tampermonkey userscript lets you select a nested scrollable
 container, automatically scrolls through it to load lazy content, and exports the
@@ -23,7 +23,7 @@ dashboards, and other scrollable sections of a website.
 1. Install [Violentmonkey](https://violentmonkey.github.io/) or Tampermonkey.
 2. Open the extension dashboard and create a new userscript.
 3. Copy the contents of
-   [`scrollable-element-capture.user.js`](scrollable-element-capture.user.js)
+   [`scrollable-element-screenshot.user.js`](scrollable-element-screenshot.user.js)
    into the editor and save it.
 4. Reload the website you want to capture.
 
