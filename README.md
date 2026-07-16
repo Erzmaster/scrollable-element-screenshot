@@ -52,5 +52,4 @@ screenshot, nested scroll container, html2canvas.
 
 ## License
 
-Choose and add a license before publishing. The MIT License is a common choice for
-small open-source userscripts.
+This project is licensed under the [MIT License](LICENSE).
