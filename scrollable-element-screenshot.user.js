@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Scrollable Element Screenshot
 // @namespace    local.scrollable-element-screenshot
-// @version      1.2.1
+// @version      1.3.0
 // @description  Capture any scrollable element as a full PNG screenshot, including nested scroll containers.
 // @match        http://*/*
 // @match        https://*/*
@@ -347,18 +347,44 @@
 
   button = document.createElement('button');
   button.setAttribute(UI_ATTRIBUTE, '');
+  button.setAttribute('aria-keyshortcuts', 'Alt+Shift+S');
   button.type = 'button';
   button.textContent = '📷';
-  button.title = 'Capture a scrollable element';
+  button.title = 'Capture a scrollable element (Alt+Shift+S)';
   Object.assign(button.style, {
     position: 'fixed', right: '18px', bottom: '18px', zIndex: '2147483646',
     width: '42px', height: '42px', border: '0', borderRadius: '50%',
     background: '#17191d', color: '#fff', fontSize: '20px', cursor: 'pointer',
     boxShadow: '0 3px 14px rgba(0,0,0,.35)'
   });
-  button.addEventListener('click', (event) => {
-    event.stopPropagation();
-    startSelecting();
-  });
   document.documentElement.append(button);
+
+  function shieldCameraPointerEvent(event) {
+    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
+    if (event.target !== button && !path.includes(button)) return;
+
+    // Outside-click handlers commonly listen on document during pointerdown or
+    // mousedown. Intercept at window before the event reaches those handlers.
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    if (event.type === 'pointerdown' && event.button === 0) startSelecting();
+  }
+
+  for (const eventName of ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click']) {
+    addEventListener(eventName, shieldCameraPointerEvent, true);
+  }
+
+  addEventListener('keydown', (event) => {
+    const buttonKey = event.target === button && (event.key === 'Enter' || event.key === ' ');
+    const shortcut = event.altKey && event.shiftKey && !event.ctrlKey && !event.metaKey
+      && event.code === 'KeyS';
+    if (!buttonKey && !shortcut) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    startSelecting();
+  }, true);
 })();
