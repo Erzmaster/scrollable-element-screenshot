@@ -11,6 +11,7 @@ dashboards, and other scrollable sections of a website.
 ## Features
 
 - Point-and-click selection with a visible outline
+- Popup-safe camera activation and `Alt+Shift+S` keyboard shortcut
 - Full-height and full-width element capture
 - Automatic scrolling for lazy-loaded content
 - Automatic detection of the page's background color
@@ -29,7 +30,11 @@ dashboards, and other scrollable sections of a website.
 
 ## Usage
 
-1. Click the floating camera button in the bottom-right corner.
+1. Start element selection using any of these methods:
+   - Click the floating camera button in the bottom-right corner.
+   - Press **Alt+Shift+S**.
+   - Open the Violentmonkey add-on menu and select
+     **Capture a scrollable element**.
 2. Move the pointer over the desired scrollable area.
 3. Click when the cyan outline highlights the correct element.
 4. Choose where to save the generated PNG. Press **Esc** to cancel selection.
